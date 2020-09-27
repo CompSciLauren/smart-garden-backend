@@ -4,7 +4,8 @@
   "description": "The backend for Smart Garden.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier": "prettier --write '**/*.js"
   },
   "repository": {
     "type": "git",
@@ -25,5 +26,18 @@
     "express": "^4.17.1",
     "mongoose": "^5.10.7",
     "serialport": "^9.0.1"
+  },
+  "devDependencies": {
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.0",
+    "prettier": "^2.1.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
   }
 }
