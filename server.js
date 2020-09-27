@@ -9,30 +9,36 @@ const Readline = require("@serialport/parser-readline");
 const myPlantName = "basil";
 
 // read data from sensor
-// const serialPort = new SerialPort("COM3");
-// const parser = serialPort.pipe(new Readline({ delimiter: "\r\n" }));
+const serialPort = new SerialPort("COM3");
+const parser = serialPort.pipe(new Readline({ delimiter: "\r\n" }));
 
-// let shouldCaptureData = false;
+let shouldCaptureData = false;
 
-// parser.on("data", (data) => {
-//   if (shouldCaptureData) {
-//     console.log("Saving data", data);
-//     axios
-//       .post("http://localhost:5000/moistureMeasurements/add", myPlantName, data)
-//       .then((res) => console.log(res.data))
-//       .catch(function (error) {
-//         console.log(error);
-//       });
-//     shouldCaptureData = false;
-//   }
-// });
+parser.on("data", (data) => {
+  if (shouldCaptureData) {
+    console.log("Saving data", data);
 
-// let minutes = 0.1;
-// let interval = minutes * 60 * 1000;
+    const dataObject = {
+      plantName: myPlantName,
+      moistureReading: data.toString(),
+    };
 
-// setInterval(() => {
-//   shouldCaptureData = true;
-// }, interval);
+    axios
+      .post("http://localhost:5000/moistureMeasurements/add", dataObject)
+      .then((res) => console.log(res.data))
+      .catch(function (error) {
+        console.log(error);
+      });
+    shouldCaptureData = false;
+  }
+});
+
+let minutes = 0.1;
+let interval = minutes * 60 * 1000;
+
+setInterval(() => {
+  shouldCaptureData = true;
+}, interval);
 
 require("dotenv").config();
 
