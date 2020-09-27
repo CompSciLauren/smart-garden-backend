@@ -26,4 +26,18 @@ router.route("/add").post((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+// view specific moisture measurement
+router.route("/:id").get((req, res) => {
+  MoistureMeasurement.findById(req.params.id)
+    .then((moistureMeasurement) => res.json(moistureMeasurement))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+// delete a specific moisture measurement
+router.route("/:id").delete((req, res) => {
+  MoistureMeasurement.findByIdAndDelete(req.params.id)
+    .then(() => res.json("Moisture measurement deleted."))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 module.exports = router;
