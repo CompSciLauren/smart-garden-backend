@@ -1,28 +1,38 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const axios = require("axios");
 const SerialPort = require("serialport");
 const Readline = require("@serialport/parser-readline");
 
+// plant being tracked
+const myPlantName = "basil";
+
 // read data from sensor
-const serialPort = new SerialPort("COM3");
-const parser = serialPort.pipe(new Readline({ delimiter: "\r\n" }));
+// const serialPort = new SerialPort("COM3");
+// const parser = serialPort.pipe(new Readline({ delimiter: "\r\n" }));
 
-let shouldCaptureData = false;
+// let shouldCaptureData = false;
 
-parser.on("data", (data) => {
-  if (shouldCaptureData) {
-    console.log("Saving data", data);
-    shouldCaptureData = false;
-  }
-});
+// parser.on("data", (data) => {
+//   if (shouldCaptureData) {
+//     console.log("Saving data", data);
+//     axios
+//       .post("http://localhost:5000/moistureMeasurements/add", myPlantName, data)
+//       .then((res) => console.log(res.data))
+//       .catch(function (error) {
+//         console.log(error);
+//       });
+//     shouldCaptureData = false;
+//   }
+// });
 
-let minutes = 0.1;
-let interval = minutes * 60 * 1000;
+// let minutes = 0.1;
+// let interval = minutes * 60 * 1000;
 
-setInterval(() => {
-  shouldCaptureData = true;
-}, interval);
+// setInterval(() => {
+//   shouldCaptureData = true;
+// }, interval);
 
 require("dotenv").config();
 
@@ -39,10 +49,13 @@ connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
 
+// add routers
 const usersRouter = require("./routes/users");
 const plantsRouter = require("./routes/plants");
+const moistureMeasurementsRouter = require("./routes/moistureMeasurements");
 app.use("/users", usersRouter);
 app.use("/plants", plantsRouter);
+app.use("/moistureMeasurements", moistureMeasurementsRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);

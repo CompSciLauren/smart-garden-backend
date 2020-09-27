@@ -4,12 +4,13 @@ const Schema = mongoose.Schema;
 
 const plantSchema = new Schema(
   {
+    username: {
+      type: String,
+      required: true,
+    },
     plantName: {
       type: String,
       required: true,
-      unique: true,
-      trim: true,
-      minlength: 1,
     },
   },
   {
