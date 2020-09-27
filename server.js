@@ -6,7 +6,7 @@ const SerialPort = require("serialport");
 const Readline = require("@serialport/parser-readline");
 
 // plant being tracked
-const myPlantName = "basil";
+const myPlantName = "Zebra Plant";
 
 // read data from sensor
 const serialPort = new SerialPort("COM3");
