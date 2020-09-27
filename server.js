@@ -33,7 +33,7 @@ parser.on("data", (data) => {
   }
 });
 
-let minutes = 0.1;
+let minutes = 30;
 let interval = minutes * 60 * 1000;
 
 setInterval(() => {
