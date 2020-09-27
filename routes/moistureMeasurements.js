@@ -40,4 +40,19 @@ router.route("/:id").delete((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+// edit a specific moisture measurement
+router.route("/edit/:id").post((req, res) => {
+  MoistureMeasurement.findById(req.params.id)
+    .then((moistureMeasurement) => {
+      moistureMeasurement.plantName = req.body.plantName;
+      moistureMeasurement.moistureReading = req.body.moistureReading;
+      moistureMeasurement.date = Date.parse(req.body.date);
+      moistureMeasurement
+        .save()
+        .then(() => res.json("Moisture reading updated!"))
+        .catch((err) => res.status(400).json("Error: " + err));
+    })
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 module.exports = router;
