@@ -8,6 +8,13 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+// view all moisture measurements for a specific plant
+router.route("/:plantName").get((req, res) => {
+  MoistureMeasurement.find({ plantName: req.params.plantName })
+    .then((moistureMeasurements) => res.json(moistureMeasurements))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 // add new moisture measurement
 router.route("/add").post((req, res) => {
   const plantName = req.body.plantName;
