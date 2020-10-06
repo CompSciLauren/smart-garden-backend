@@ -5,8 +5,12 @@ const axios = require("axios");
 const SerialPort = require("serialport");
 const Readline = require("@serialport/parser-readline");
 
+require("dotenv").config();
+const username = process.env.USERNAME; // will need once unique plant name issue between users is fixed
+const plantName = process.env.PLANTNAME;
+
 // plant being tracked
-const myPlantName = "Zebra Plant";
+const myPlantName = plantName;
 
 // read data from sensor
 const serialPort = new SerialPort("COM3");
@@ -39,8 +43,6 @@ let interval = minutes * 60 * 1000;
 setInterval(() => {
   shouldCaptureData = true;
 }, interval);
-
-require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 5000;
