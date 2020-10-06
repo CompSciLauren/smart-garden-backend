@@ -4,6 +4,10 @@ const Schema = mongoose.Schema;
 
 const moistureMeasurementSchema = new Schema(
   {
+    username: {
+      type: String,
+      required: true,
+    },
     plantName: {
       type: String,
       required: true,

@@ -17,11 +17,13 @@ router.route("/:plantName").get((req, res) => {
 
 // add new moisture measurement
 router.route("/add").post((req, res) => {
+  const username = req.body.username;
   const plantName = req.body.plantName;
   const moistureReading = req.body.moistureReading;
   const date = new Date();
 
   const newMoistureMeasurement = new MoistureMeasurement({
+    username,
     plantName,
     moistureReading,
     date,

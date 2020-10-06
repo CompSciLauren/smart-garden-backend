@@ -6,11 +6,8 @@ const SerialPort = require("serialport");
 const Readline = require("@serialport/parser-readline");
 
 require("dotenv").config();
-const username = process.env.USERNAME; // will need once unique plant name issue between users is fixed
+const username = process.env.USERNAME;
 const plantName = process.env.PLANTNAME;
-
-// plant being tracked
-const myPlantName = plantName;
 
 // read data from sensor
 const serialPort = new SerialPort("COM3");
@@ -23,7 +20,8 @@ parser.on("data", (data) => {
     console.log("Saving data", data);
 
     const dataObject = {
-      plantName: myPlantName,
+      username: username,
+      plantName: plantName,
       moistureReading: data.toString(),
     };
 
