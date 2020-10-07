@@ -1,5 +1,6 @@
 const router = require("express").Router();
 let MoistureMeasurement = require("../models/moistureMeasurement.model");
+const { DateTime } = require("luxon");
 
 // view all moisture measurements
 router.route("/").get((req, res) => {
@@ -23,7 +24,10 @@ router.route("/add").post((req, res) => {
   const username = req.body.username;
   const plantName = req.body.plantName;
   const moistureReading = req.body.moistureReading;
-  const date = new Date();
+  const date = DateTime.local().setZone("local").toLocal();
+
+  console.log("date:", date);
+  console.log(date.isValid);
 
   const newMoistureMeasurement = new MoistureMeasurement({
     username,

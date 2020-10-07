@@ -9,8 +9,6 @@ require("dotenv").config();
 const username = process.env.MYUSERNAME;
 const plantName = process.env.MYPLANTNAME;
 
-console.log("username:", username);
-
 // read data from sensor
 const serialPort = new SerialPort("COM3");
 const parser = serialPort.pipe(new Readline({ delimiter: "\r\n" }));
