@@ -24,10 +24,7 @@ router.route("/add").post((req, res) => {
   const username = req.body.username;
   const plantName = req.body.plantName;
   const moistureReading = req.body.moistureReading;
-  const date = DateTime.local().setZone("local").toLocal();
-
-  console.log("date:", date);
-  console.log(date.isValid);
+  const date = DateTime.local().minus({ hours: 5 });
 
   const newMoistureMeasurement = new MoistureMeasurement({
     username,
