@@ -8,6 +8,13 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+// view all plants for a specific user
+router.route("/:username").get((req, res) => {
+  Plant.find({ username: req.params.username })
+    .then((plants) => res.json(plants))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 // add new plant
 router.route("/add").post((req, res) => {
   const username = req.body.username;
