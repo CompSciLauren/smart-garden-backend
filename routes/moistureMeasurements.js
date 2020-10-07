@@ -9,8 +9,11 @@ router.route("/").get((req, res) => {
 });
 
 // view all moisture measurements for a specific plant
-router.route("/:plantName").get((req, res) => {
-  MoistureMeasurement.find({ plantName: req.params.plantName })
+router.route("/:username/:plantName").get((req, res) => {
+  MoistureMeasurement.find({
+    username: req.params.username,
+    plantName: req.params.plantName,
+  })
     .then((moistureMeasurements) => res.json(moistureMeasurements))
     .catch((err) => res.status(400).json("Error: " + err));
 });
